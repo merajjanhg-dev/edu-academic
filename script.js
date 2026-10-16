@@ -1,0 +1,5 @@
+const toggle=document.querySelector('.menu-toggle');const nav=document.querySelector('.main-nav');
+if(toggle&&nav){toggle.addEventListener('click',()=>{const open=nav.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open));toggle.textContent=open?'×':'☰'});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');toggle.setAttribute('aria-expanded','false');toggle.textContent='☰'}))}
+const form=document.getElementById('searchForm'),input=document.getElementById('siteSearch'),cards=[...document.querySelectorAll('.category-card')],noResults=document.getElementById('noResults');
+function runSearch(query){const q=query.trim().toLocaleLowerCase('fa');let visible=0;cards.forEach(card=>{const text=(card.innerText+' '+(card.dataset.search||'')).toLocaleLowerCase('fa');const match=!q||text.includes(q);card.hidden=!match;if(match)visible++});noResults.hidden=visible>0;document.getElementById('explore').scrollIntoView({behavior:'smooth',block:'start'})}
+if(form)form.addEventListener('submit',e=>{e.preventDefault();runSearch(input.value)});
